@@ -1,119 +1,120 @@
 import styled from "styled-components";
 
 export const CenteredContent = styled.div`
-  height: calc(100vh - 43px);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  h1 {
-    color: #ff577f;
-    font-size: 23px;
-  }
-
-  h2 {
-    margin: 5px auto 10px auto;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14.439px;
-    line-height: 22px;
-
-    color: #f8f9fa;
-  }
-
-  main {
-    height: 80%;
-    width: 90vw;
+    height: calc(100vh - 43px);
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-  }
 
-  .form {
-    height: 80%;
-    width: 100%;
-    background-color: #212529;
-    padding: 20px 13px;
-    display: flex;
-    flex-direction: column;
-  }
+    h1 {
+        color: #ff577f;
+        font-size: 23px;
+    }
 
-  form {
-    gap: 13px;
-    display: flex;
-    flex-direction: column;
-  }
+    h2 {
+        margin: 5px auto 25px auto;
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14.439px;
+        line-height: 22px;
 
-  label {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 11px;
+        color: #f8f9fa;
+    }
 
-    color: #f8f9fa;
-  }
+    main {
+        height: 80%;
+        width: 90vw;
+        max-width: 325px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
 
-  input {
-    height: 38px;
-    padding: 8px;
-    gap: 8px;
-    background: #343b41;
-    border: 1px solid #f8f9fa;
-    border-radius: 4px;
+    .form {
+        height: 80%;
+        width: 100%;
+        background-color: #212529;
+        padding: 20px 13px;
+        display: flex;
+        flex-direction: column;
+    }
 
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 21px;
+    form {
+        gap: 13px;
+        display: flex;
+        flex-direction: column;
+    }
 
-    color: #f8f9fa;
-  }
+    label {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 11px;
 
-  button {
-    margin-top: 10px;
-    background-color: #ff577f;
-    padding: 0px 23px;
+        color: #f8f9fa;
+    }
 
-    width: 100%;
-    height: 38px;
+    input {
+        height: 38px;
+        padding: 8px;
+        gap: 8px;
+        background: #343b41;
+        border: 1px solid #f8f9fa;
+        border-radius: 4px;
 
-    /* color-primary */
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 21px;
 
-    background: #ff577f;
-    /* color-primary */
+        color: #f8f9fa;
+    }
 
-    border: 1.2182px solid #ff577f;
-    border-radius: 4.06066px;
+    button {
+        margin-top: 10px;
+        background-color: #ff577f;
+        padding: 0px 23px;
 
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12.8347px;
-    line-height: 21px;
+        width: 100%;
+        height: 38px;
 
-    color: #ffffff;
-  }
+        /* color-primary */
 
-  .no-account {
-    margin: 15px auto 5px auto;
+        background: #ff577f;
+        /* color-primary */
 
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 14px;
+        border: 1.2182px solid #ff577f;
+        border-radius: 4.06066px;
 
-    color: #868e96;
-  }
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12.8347px;
+        line-height: 21px;
 
-  .register-btn {
-    background-color: #868e96;
-    border: none;
-  }
+        color: #ffffff;
+    }
+
+    .no-account {
+        margin: 35px auto 10px auto;
+
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 14px;
+
+        color: #868e96;
+    }
+
+    .register-btn {
+        background-color: #868e96;
+        border: none;
+    }
 `;
