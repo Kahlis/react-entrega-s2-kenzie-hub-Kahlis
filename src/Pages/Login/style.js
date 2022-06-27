@@ -60,7 +60,7 @@ export const CenteredContent = styled.div`
     }
 
     input {
-        height: 38px;
+        height: 42px;
         padding: 8px;
         gap: 8px;
         background: #343b41;
@@ -73,7 +73,18 @@ export const CenteredContent = styled.div`
         font-size: 13px;
         line-height: 21px;
 
+        border: none;
+        outline: none;
         color: #f8f9fa;
+    }
+
+    input:focus {
+        outline: 2px solid #454d54;
+    }
+
+    .error,
+    .error:focus {
+        outline: 2px solid #fc3535;
     }
 
     button {

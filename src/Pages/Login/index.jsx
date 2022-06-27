@@ -53,9 +53,23 @@ function Login() {
                         <h2>Login</h2>
                         <form onSubmit={handleSubmit(submitLogin)}>
                             <label>Email</label>
-                            <input type="text" {...register("email")} />
+                            <input
+                                type="text"
+                                placeholder="example@kenzie.com.br"
+                                className={
+                                    errors?.email?.message ? "error" : ""
+                                }
+                                {...register("email")}
+                            />
                             <label>Senha</label>
-                            <input type="password" {...register("password")} />
+                            <input
+                                type="password"
+                                placeholder="*********"
+                                className={
+                                    errors?.password?.message ? "error" : ""
+                                }
+                                {...register("password")}
+                            />
                             <button onClick={reportErrors}>Entrar</button>
                         </form>
                         <label className="no-account">
