@@ -9,30 +9,67 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
     const schema = yup.object().shape({
+        name: yup
+            .string()
+            .required("O campo nome é obrigatório")
+            .min(3, "Insira ao menos 3 characteres"),
         email: yup
             .string()
-            .email("Email inválido")
-            .required("O campo de email é obrigatório!"),
-        password: yup.string().required("O campo de senha é obrigatório!"),
+            .required("O campo email é obrigatório")
+            .email("Email inválido"),
+        password: yup
+            .string()
+            .required("O campo senha é obrigatório")
+            .matches(
+                /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,}$/,
+                "A senha deve conter ao menos uma letra minúscula, maiúscula, um número e ao mínimo 8 characteres"
+            ),
+        rePassword: yup
+            .string()
+            .oneOf(
+                [yup.ref("password")],
+                "As senhas devem ser iguais no campo senha e confirmação de senha"
+            ),
+        bio: yup
+            .string()
+            .max(255, "Sua bio deve ter no máximo 255 characteres."),
+        contact: yup
+            .string()
+            .max(15)
+            .required("O campo de contato é obrigatório"),
     });
 
     const {
         register,
         handleSubmit,
         formState: { errors },
+        setValue,
     } = useForm({
         resolver: yupResolver(schema),
     });
 
     const submitLogin = (data) => {
         console.log(data);
+
+        toast("Usuário cadastrado com sucesso", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+            type: "success",
+        });
     };
 
     const reportErrors = () => {
+        console.log(errors);
         Object.keys(errors).forEach((error) => {
             toast(errors[error].message, {
                 position: "bottom-right",
-                autoClose: 2000,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: false,
@@ -98,6 +135,11 @@ function Register() {
                             <select
                                 type="text"
                                 placeholder="Selecione seu módulo atual"
+                                onChange={(e) =>
+                                    setValue("select", e.target.value, {
+                                        shouldValidate: true,
+                                    })
+                                }
                                 {...register("module")}
                             >
                                 <option value={"M1"}>M1</option>
