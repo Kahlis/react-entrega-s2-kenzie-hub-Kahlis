@@ -36,7 +36,7 @@ export const CenteredContent = styled.div`
     }
 
     .form {
-        height: 80%;
+        height: 85%;
         width: 100%;
         background-color: #212529;
         padding: 20px 13px;

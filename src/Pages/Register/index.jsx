@@ -49,8 +49,6 @@ function Register() {
     });
 
     const submitLogin = (data) => {
-        console.log(data);
-
         toast("Usuário cadastrado com sucesso", {
             position: "bottom-right",
             autoClose: 5000,
@@ -65,7 +63,6 @@ function Register() {
     };
 
     const reportErrors = () => {
-        console.log(errors);
         Object.keys(errors).forEach((error) => {
             toast(errors[error].message, {
                 position: "bottom-right",
