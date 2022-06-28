@@ -5,25 +5,48 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { api } from "../../data/api";
 
-function Modal({ title, item, closeModal }) {
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        formState: { errors },
-    } = useForm();
+function Modal({ title, item, closeModal, user, loadTechs }) {
+    const { register, handleSubmit, setValue } = useForm();
+
+    const deleteItem = () => {
+        api.delete(`/users/techs/${item.id}/`, {
+            headers: { authorization: `Bearer ${user.token}` },
+        })
+            .then(function (response) {
+                loadTechs();
+                closeModal("Tecnologia deletada com sucesso", "success");
+            })
+            .catch(function (error) {
+                toast(error.response.data.message, {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "dark",
+                    type: "error",
+                });
+            });
+    };
 
     const submitEnter = (data) => {
-        console.log(data);
         if (item.title !== "") {
-            api.put(`/users/techs/${item.id}/`, {
-                status: data.status,
-            })
+            api.put(
+                `/users/techs/${item.id}/`,
+                {
+                    status: data.status,
+                },
+                {
+                    headers: { authorization: `Bearer ${user.token}` },
+                }
+            )
                 .then(function (response) {
-                    console.log(response);
+                    closeModal("Alteração feita com sucesso", "success");
+                    closeModal();
                 })
                 .catch(function (error) {
-                    console.log(error);
                     toast(error.response.data.message, {
                         position: "bottom-right",
                         autoClose: 3000,
@@ -37,12 +60,13 @@ function Modal({ title, item, closeModal }) {
                     });
                 });
         } else {
-            api.post("/users/techs/", data)
+            api.post(`/users/techs/`, data, {
+                headers: { authorization: `Bearer ${user.token}` },
+            })
                 .then(function (response) {
-                    console.log(response);
+                    closeModal("Tecnologia adicionada com sucesso", "success");
                 })
                 .catch(function (error) {
-                    console.log(error);
                     toast(error.response.data.message, {
                         position: "bottom-right",
                         autoClose: 3000,
@@ -105,7 +129,13 @@ function Modal({ title, item, closeModal }) {
                                 ? "Salvar alterações"
                                 : "Cadastrar Tecnologia"}
                         </button>
-                        <button className="delete" type="button">
+                        <button
+                            className="delete"
+                            type="button"
+                            onClick={() => {
+                                deleteItem();
+                            }}
+                        >
                             Excluir
                         </button>
                     </div>

@@ -1,13 +1,15 @@
 import React from "react";
 import { CenteredContent } from "./style";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { api } from "../../data/api";
 
 function Register() {
+    const history = useHistory();
     const schema = yup.object().shape({
         name: yup
             .string()
@@ -21,7 +23,7 @@ function Register() {
             .string()
             .required("O campo senha é obrigatório")
             .matches(
-                /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,}$/,
+                /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹]).{8,}$/,
                 "A senha deve conter ao menos uma letra minúscula, maiúscula, um número e ao mínimo 8 characteres"
             ),
         rePassword: yup
@@ -35,7 +37,7 @@ function Register() {
             .max(255, "Sua bio deve ter no máximo 255 characteres."),
         contact: yup
             .string()
-            .max(15)
+            .max(30, "O limite de characteres no contato é de 30")
             .required("O campo de contato é obrigatório"),
     });
 
@@ -49,17 +51,34 @@ function Register() {
     });
 
     const submitLogin = (data) => {
-        toast("Usuário cadastrado com sucesso", {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-            theme: "dark",
-            type: "success",
-        });
+        api.post("/users", data)
+            .then(function (response) {
+                history.push("/home");
+                toast("Usuário cadastrado com sucesso", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "dark",
+                    type: "success",
+                });
+            })
+            .catch(function (error) {
+                toast(error.response.data.message, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "dark",
+                    type: "error",
+                });
+            });
     };
 
     const reportErrors = () => {
@@ -137,16 +156,32 @@ function Register() {
                                         shouldValidate: true,
                                     })
                                 }
-                                {...register("module")}
+                                {...register("course_module")}
                             >
-                                <option value={"M1"}>M1</option>
-                                <option value={"M2"}>M2</option>
-                                <option value={"M3"}>M3</option>
-                                <option value={"M4"}>M4</option>
-                                <option value={"M5"}>M5</option>
-                                <option value={"M6"}>M6</option>
-                                <option value={"Q3"}>Q3</option>
-                                <option value={"Q4"}>Q4</option>
+                                <option
+                                    value={
+                                        "Primeiro módulo (Introdução ao Frontend)"
+                                    }
+                                >
+                                    Primeiro módulo (Introdução ao Frontend)
+                                </option>
+                                <option
+                                    value={"Segundo módulo (Frontend Avançado)"}
+                                >
+                                    Segundo módulo (Frontend Avançado)
+                                </option>
+                                <option
+                                    value={
+                                        "Terceiro módulo (Introdução ao Backend)"
+                                    }
+                                >
+                                    Terceiro módulo (Introdução ao Backend)
+                                </option>
+                                <option
+                                    value={"Quarto módulo (Backend Avançado)"}
+                                >
+                                    Quarto módulo (Backend Avançado)
+                                </option>
                             </select>
                             <button onClick={reportErrors}>Entrar</button>
                         </form>

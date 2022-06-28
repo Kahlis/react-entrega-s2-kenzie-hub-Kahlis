@@ -11,6 +11,7 @@ export const ModalBackground = styled.div`
 
 export const StyledModal = styled.div`
     width: 90vw;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -56,6 +57,7 @@ export const StyledModal = styled.div`
         flex-direction: column;
         padding: 15px 15px 20px 15px;
         width: 90vw;
+        max-width: 450px;
         height: auto;
         background-color: #212529;
         gap: 10px;

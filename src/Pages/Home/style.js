@@ -13,7 +13,7 @@ export const StyledHeader = styled.div`
     padding: 20px 0;
     display: flex;
     width: 90vw;
-    max-width: 325px;
+    max-width: 625px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -86,6 +86,7 @@ export const Horizontal = styled.hr`
 export const Welcome = styled.div`
     padding: 25px 15px;
     width: 100vw;
+    max-width: 625px;
     height: auto;
 
     h2 {
@@ -115,6 +116,7 @@ export const TechContainer = styled.ul`
     padding: 8px;
     width: 105%;
     height: 54vh;
+    max-width: 625px;
     overflow-y: auto;
     background: #212529;
     gap: 7px;
