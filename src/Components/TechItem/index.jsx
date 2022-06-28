@@ -1,11 +1,16 @@
 import React from "react";
+import { skills } from "../../database/skills";
 import { Item } from "./style";
 
-function TechItem({ techName, skillLevel }) {
+function TechItem({ techName, skillLevel, openModal }) {
     return (
-        <Item>
+        <Item
+            onClick={() => {
+                openModal("Tecnologia Detalhes", techName, skillLevel);
+            }}
+        >
             <h2>{techName}</h2>
-            <h3>{skillLevel}</h3>
+            <h3>{skills[skillLevel]}</h3>
         </Item>
     );
 }

@@ -4,7 +4,7 @@ export const ModalBackground = styled.div`
     width: 100vw;
     height: 100vh;
     background-color: black;
-    opacity: 0.5;
+    opacity: 0.7;
     z-index: 1000;
     position: absolute;
 `;
@@ -45,7 +45,7 @@ export const StyledModal = styled.div`
         font-family: "Inter";
         font-style: normal;
         font-weight: 700;
-        font-size: 11.2304px;
+        font-size: 11px;
         line-height: 19px;
 
         color: #f8f9fa;
@@ -111,26 +111,54 @@ export const StyledModal = styled.div`
 
         color: #f8f9fa;
     }
+
+    .action {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
     .submit {
         margin-top: 25px;
         background-color: #ff577f;
-        padding: 0px 23px;
 
-        width: 100%;
+        width: ${(props) => (props.name !== "" ? "60%" : "100%")};
         height: 38px;
 
-        /* color-primary */
-
         background: #ff577f;
-        /* color-primary */
-
-        border: 1.2182px solid #ff577f;
-        border-radius: 4.06066px;
+        border: 2px solid #ff577f;
+        border-radius: 4px;
 
         font-family: "Inter";
         font-style: normal;
         font-weight: 500;
-        font-size: 12.8347px;
+        font-size: 12px;
+        line-height: 21px;
+
+        color: #ffffff;
+    }
+
+    .delete {
+        display: ${(props) => (props.name !== "" ? "inline-block" : "none")};
+        margin-top: 25px;
+        background-color: #ff577f;
+
+        width: 35%;
+        height: 38px;
+
+        /* color-primary */
+
+        background: #868e96;
+        /* color-primary */
+
+        border: 1px solid #868e96;
+        border-radius: 4px;
+
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
         line-height: 21px;
 
         color: #ffffff;

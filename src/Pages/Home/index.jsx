@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../../Components/Modal";
 import TechItem from "../../Components/TechItem";
@@ -11,6 +11,24 @@ import {
 } from "./style";
 
 function Home() {
+    const [currentSkillLevel, setCurrentSkillLevel] = useState(0);
+    const [currentTechName, setCurrentTechName] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalTitle, setModalTitle] = useState("");
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setCurrentTechName("");
+        setCurrentSkillLevel(0);
+    };
+
+    const openModal = (title, techName, skill) => {
+        setIsModalOpen(true);
+        setModalTitle(title);
+        setCurrentTechName(techName);
+        setCurrentSkillLevel(skill);
+    };
+
     return (
         <CenteredContent>
             <StyledHeader>
@@ -32,17 +50,32 @@ function Home() {
                 </Link>
             </StyledHeader>
             <TechContainer>
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
-                <TechItem techName={"React JS"} skillLevel={"Intermediário"} />
+                <TechItem
+                    techName={"React JSX"}
+                    skillLevel={0}
+                    openModal={openModal}
+                />
+                <TechItem
+                    techName={"React JS"}
+                    skillLevel={1}
+                    openModal={openModal}
+                />
+                <TechItem techName={"React JS"} skillLevel={1} />
+                <TechItem techName={"React JS"} skillLevel={1} />
+                <TechItem techName={"React JS"} skillLevel={1} />
+                <TechItem techName={"React JS"} skillLevel={1} />
+                <TechItem techName={"React JS"} skillLevel={1} />
+                <TechItem techName={"React JS"} skillLevel={1} />
+                <TechItem techName={"React JS"} skillLevel={1} />
             </TechContainer>
-            {/*<Modal />*/}
+            {isModalOpen && (
+                <Modal
+                    title={modalTitle}
+                    name={currentTechName}
+                    skill={currentSkillLevel}
+                    closeModal={closeModal}
+                />
+            )}
         </CenteredContent>
     );
 }
