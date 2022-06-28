@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CenteredContent } from "./style";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { api } from "../../data/api";
 
-function Login() {
+function Login({ setUserData }) {
+    const history = useHistory();
+
     const schema = yup.object().shape({
         email: yup
             .string()
@@ -25,8 +28,35 @@ function Login() {
     });
 
     const submitLogin = (data) => {
-        console.log(data);
+        api.post("/sessions", {
+            email: data.email,
+            password: data.password,
+        })
+            .then(function (response) {
+                localStorage.setItem("userData", JSON.stringify(response.data));
+                setUserData(response.data);
+                history.push("/home");
+            })
+            .catch(function (error) {
+                toast(error.response.data.message, {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "dark",
+                    type: "error",
+                });
+            });
     };
+
+    /*
+    useEffect(() => {
+        
+    }, []);
+    */
 
     const reportErrors = () => {
         Object.keys(errors).forEach((error) => {

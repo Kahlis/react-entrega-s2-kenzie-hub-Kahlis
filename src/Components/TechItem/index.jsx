@@ -1,16 +1,17 @@
 import React from "react";
-import { skills } from "../../database/skills";
+import { skills } from "../../data/skills";
 import { Item } from "./style";
 
-function TechItem({ techName, skillLevel, openModal }) {
+function TechItem({ item, openModal, setCurrentItem }) {
     return (
         <Item
             onClick={() => {
-                openModal("Tecnologia Detalhes", techName, skillLevel);
+                openModal("Tecnologia Detalhes", item);
+                setCurrentItem(item);
             }}
         >
-            <h2>{techName}</h2>
-            <h3>{skills[skillLevel]}</h3>
+            <h2>{item.title}</h2>
+            <h3>{item.status}</h3>
         </Item>
     );
 }

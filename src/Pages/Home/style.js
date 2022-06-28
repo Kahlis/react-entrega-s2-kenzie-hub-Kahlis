@@ -109,7 +109,7 @@ export const Welcome = styled.div`
     }
 `;
 
-export const TechContainer = styled.div`
+export const TechContainer = styled.ul`
     display: flex;
     flex-direction: column;
     padding: 8px;
@@ -118,4 +118,19 @@ export const TechContainer = styled.div`
     overflow-y: auto;
     background: #212529;
     gap: 7px;
+
+    ${(props) =>
+        props.techLength < 1
+            ? "justify-content: center; align-items: center;"
+            : ""}
+
+    p {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 16px;
+        text-align: center;
+        color: #f8f9fa;
+    }
 `;

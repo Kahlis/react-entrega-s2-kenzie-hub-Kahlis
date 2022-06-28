@@ -89,6 +89,11 @@ export const StyledModal = styled.div`
         color: #f8f9fa;
     }
 
+    .disabled {
+        cursor: not-allowed;
+        opacity: 0.3;
+    }
+
     input:focus {
         outline: 2px solid #454d54;
     }

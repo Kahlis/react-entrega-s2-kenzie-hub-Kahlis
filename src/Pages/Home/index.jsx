@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../../Components/Modal";
 import TechItem from "../../Components/TechItem";
+import { api } from "../../data/api";
 import {
     CenteredContent,
     StyledHeader,
@@ -10,10 +12,11 @@ import {
     TechContainer,
 } from "./style";
 
-function Home() {
+function Home({ userData, setUserData }) {
     const [currentSkillLevel, setCurrentSkillLevel] = useState(0);
     const [currentTechName, setCurrentTechName] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentItem, setCurrentItem] = useState({});
     const [modalTitle, setModalTitle] = useState("");
 
     const closeModal = () => {
@@ -22,11 +25,14 @@ function Home() {
         setCurrentSkillLevel(0);
     };
 
-    const openModal = (title, techName, skill) => {
+    const openModal = (title, item) => {
         setIsModalOpen(true);
         setModalTitle(title);
-        setCurrentTechName(techName);
-        setCurrentSkillLevel(skill);
+        setCurrentTechName(item !== undefined ? item.title : "");
+        setCurrentSkillLevel(item !== undefined ? item.status : "Iniciante");
+        setCurrentItem(
+            item !== undefined ? item : { title: "", status: "Iniciante" }
+        );
     };
 
     return (
@@ -39,40 +45,42 @@ function Home() {
             </StyledHeader>
             <Horizontal />
             <Welcome>
-                <h2>Olá, Matheus Arruda</h2>
-                <h3>Terceiro módulo (React)</h3>
+                <h2>Olá, {userData.user.name}</h2>
+                <h3>{userData.user.course_module}</h3>
             </Welcome>
             <Horizontal />
             <StyledHeader>
                 <h3>Tecnologias</h3>
-                <Link to={"/login"}>
-                    <button className="new-tech">+</button>
-                </Link>
+                <button
+                    className="new-tech"
+                    onClick={() => {
+                        openModal("Cadastrar Tecnologia", undefined);
+                    }}
+                >
+                    +
+                </button>
             </StyledHeader>
-            <TechContainer>
-                <TechItem
-                    techName={"React JSX"}
-                    skillLevel={0}
-                    openModal={openModal}
-                />
-                <TechItem
-                    techName={"React JS"}
-                    skillLevel={1}
-                    openModal={openModal}
-                />
-                <TechItem techName={"React JS"} skillLevel={1} />
-                <TechItem techName={"React JS"} skillLevel={1} />
-                <TechItem techName={"React JS"} skillLevel={1} />
-                <TechItem techName={"React JS"} skillLevel={1} />
-                <TechItem techName={"React JS"} skillLevel={1} />
-                <TechItem techName={"React JS"} skillLevel={1} />
-                <TechItem techName={"React JS"} skillLevel={1} />
+            <TechContainer techLength={userData.user.techs.length}>
+                {userData.user.techs.map((item) => {
+                    return (
+                        <TechItem
+                            key={item.id}
+                            item={item}
+                            openModal={openModal}
+                            setCurrentItem={setCurrentItem}
+                        />
+                    );
+                })}
+                {userData.user.techs.length < 1 ? (
+                    <p>Nenhuma tecnologia cadastrada</p>
+                ) : (
+                    ""
+                )}
             </TechContainer>
             {isModalOpen && (
                 <Modal
                     title={modalTitle}
-                    name={currentTechName}
-                    skill={currentSkillLevel}
+                    item={currentItem}
                     closeModal={closeModal}
                 />
             )}
